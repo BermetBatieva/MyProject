@@ -69,10 +69,12 @@ public class SecurityConfig  {
         protected void configure(HttpSecurity http) throws Exception {
             http.csrf().disable()
                     .authorizeRequests()
+                    .antMatchers("/register").permitAll()
                     .antMatchers("/auth").permitAll()
                     .anyRequest()
                     .authenticated()
-                    .and().sessionManagement()
+                    .and()
+                    .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
             http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
